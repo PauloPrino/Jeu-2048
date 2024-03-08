@@ -30,9 +30,9 @@ function haut(event: KeyboardEvent): void {
             info.textContent = "Information : le mouvement n'a pas eu lieu"
         }
         else {
+            nouveau_chiffre()
             info.textContent = "Information : le mouvement a eu lieu"
         }
-        nouveau_chiffre()
     }
 }
 
@@ -55,9 +55,9 @@ function bas(event: KeyboardEvent): void {
             info.textContent = "Information : le mouvement n'a pas eu lieu"
         }
         else {
+            nouveau_chiffre()
             info.textContent = "Information : le mouvement a eu lieu"
         }
-        nouveau_chiffre()
     }
 }
 
@@ -80,9 +80,9 @@ function droite(event: KeyboardEvent): void {
             info.textContent = "Information : le mouvement n'a pas eu lieu"
         }
         else {
+            nouveau_chiffre()
             info.textContent = "Information : le mouvement a eu lieu"
         }
-        nouveau_chiffre()
     }
 }
 
@@ -105,9 +105,9 @@ function gauche(event: KeyboardEvent): void {
             info.textContent = "Information : le mouvement n'a pas eu lieu"
         }
         else {
+            nouveau_chiffre()
             info.textContent = "Information : le mouvement a eu lieu"
         }
-        nouveau_chiffre()
     }
 }
 
@@ -283,8 +283,8 @@ function moveUp(j: number): boolean{
         }
         liste_valeurs_colonne.push(valeur_case)
     }
-    for (let j = liste_valeurs_colonne.length - 1; j > 0; j--) {
-        if (liste_valeurs_colonne[j] == 0 && liste_valeurs_colonne[j-1] != 0) { // on regarde si il y a dans la colonne un élément non nul en-dessous d'un élément nul
+    for (let i = 0; i < liste_valeurs_colonne.length - 1; i++) {
+        if (liste_valeurs_colonne[i] == 0 && liste_valeurs_colonne[i+1] != 0) { // on regarde si il y a dans la colonne un élément non nul en-dessous d'un élément nul
             au_moins_un_mouvement = true
             break
         }
@@ -315,8 +315,8 @@ function moveDown(j: number): boolean{
         }
         liste_valeurs_colonne.push(valeur_case)
     }
-    for (let j = 0; j < liste_valeurs_colonne.length - 1; j++) {
-        if (liste_valeurs_colonne[j] == 0 && liste_valeurs_colonne[j+1] != 0) { // on regarde si il y a dans la colonne un élément non nul au-dessus d'un élément nul
+    for (let i = liste_valeurs_colonne.length - 1; i >0; i--) {
+        if (liste_valeurs_colonne[i] == 0 && liste_valeurs_colonne[i-1] != 0) { // on regarde si il y a dans la colonne un élément non nul au-dessus d'un élément nul
             au_moins_un_mouvement = true
             break
         }
@@ -419,6 +419,7 @@ function fusionUp(j: number): boolean{
     }
     return false
 }
+
 function fusionDown(j: number): boolean{
     var liste_valeurs_ligne: number [] = []
     var au_moins_une_fusion: boolean = false
@@ -473,7 +474,11 @@ function up(j: number): boolean{
 }
 function down(j: number): boolean{
     const res_deplacement: boolean = moveDown(j)
+    console.log("deplacement")
+    console.log(res_deplacement)
     const res_fusion: boolean = fusionDown(j)
+    console.log("fusion")
+    console.log(res_fusion)
     if (res_deplacement || res_fusion) { // s'il y a eu au moins une fusion ou un déplacement
         return true
     }
